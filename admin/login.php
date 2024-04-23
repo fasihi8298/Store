@@ -1,13 +1,50 @@
 <?php
 
-require_once("./db-con.php");
 
-if($_SERVER['REQUEST_METHOD'] == "POST"  && $_POST['submit'] == "login"){
+    require_once "./db-con.php";
 
-    
-}
+    if($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['submit'] == "login") {
+
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+       // verify inputs are correct ?
+
+       if($email == "" || $password == ""){
+        die("all fields are required");
+       }
+
+        // verify user is exist ?
+        $sel_sql = "SELECT * FROM users WHERE email='$email' ";
+        $exists = mysqli_query($con, $sel_sql);
+
+        if(mysqli_num_rows($exists) === 0 ) {
+            echo "invalid credentials email";
+   
+        }
+
+        
+        // if user exists then verify its password is correct ?
+        $user = mysqli_fetch_assoc($exists);
+
+        if($password !== $user['password']) {
+            die("invalid credentials");
+        }
+        
+
+        session_start();
+
+        $_SESSION['login'] = true;
+        $_SESSION['user_id'] = $user['id'];
+
+        header("Location:profile.php");
+
+    }
+
+
 
 ?>
+
 
 
 <!DOCTYPE html>
@@ -56,10 +93,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"  && $_POST['submit'] == "login"){
                                 <!-------login form ----->
                                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class="mt-5 mb-5 login-input">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="email" class="form-control" name="email" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password">
+                                        <input type="password" class="form-control" name="password" placeholder="Password">
                                     </div>
                                     <button class="btn btn-success text-white submit w-100" name="submit" value="login">Login <i class="fa-solid fa-right-to-bracket"></i></button>
                                 </form>

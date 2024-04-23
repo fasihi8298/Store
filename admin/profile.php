@@ -1,3 +1,23 @@
+
+
+<?php
+session_start();
+require_once "./db-con.php";
+
+if (!isset($_SESSION['login'])  || $_SESSION['login'] == false) {
+    header("location: login.php");
+}
+
+$sel_sql = "SELECT * FROM users WHERE id='$_SESSION[user_id]' ";
+$exists = mysqli_query($con, $sel_sql);
+
+
+$row = mysqli_fetch_assoc($exists);
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
