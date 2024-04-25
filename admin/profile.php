@@ -58,7 +58,7 @@ $row = mysqli_fetch_assoc($exists);
                     <div class="card">
                         <div class="card-body">
                             <div class="media align-items-center ">
-                                <img class="mr-3 rounded-circle" src="./images/profile.png" width="130px" height="130px" alt="">
+                                <img class="mr-3 rounded-circle" src="./images/users/<?= $row['image'] ?>" width="130px" height="130px" alt="">
                                 <div class="media-body ms-5">
                                     <h3 class="mb-0"><?= $row['name'] ?></h3>
                                     <p class="text-muted mb-0"><?= $row['role'] ?></p>

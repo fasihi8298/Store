@@ -39,3 +39,12 @@
     <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
+<!-- jQuery -->
+<script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $(".credErr").hide();
+            }, 3000);
+
+        })
+    </script>
